@@ -11,22 +11,22 @@ import Foundation
 //2) Добавить ему несколько методов высшего порядка, полезных для этой коллекции (пример: filter для массивов)
 //*3) Добавить свой subscript, который будет возвращать nil в случае обращения к несуществующему индексу.
 
-struct Queue <AnyTypeOfElement: Equatable> {
+struct Queue <AnyTypeOfElement> {
     
     private var line = [AnyTypeOfElement]()
     
     ///Добавление  элемента
-    mutating func add (element: AnyTypeOfElement) {
+    mutating func push(element: AnyTypeOfElement) {
         line.append(element)
     }
     
-    ///Удаление  элемента
-    mutating func remove () -> AnyTypeOfElement? {
+    ///Удвление  элемента
+    mutating func pop() -> AnyTypeOfElement? {
         line.isEmpty ? nil : line.removeFirst()
     }
     
     ///Проверка первого элемента в очереди
-    mutating func peek () -> AnyTypeOfElement? {
+    mutating func peek() -> AnyTypeOfElement? {
         line.isEmpty ? nil : line[0]
     }
     
@@ -45,11 +45,20 @@ struct Queue <AnyTypeOfElement: Equatable> {
         
     }
     
+    //MARK: TO DO - Method for closure with two parameters
+//    func sorting(make:(_ s0: AnyTypeOfElement, _ s1: AnyTypeOfElement) -> Bool) -> [AnyTypeOfElement] {
+//
+//        var result = [AnyTypeOfElement]()
+//
+//
+//        return result
+//    }
+    
     ///Вывод содержимого очереди в терминал
     func status() {
-        line.isEmpty ? print("Empty") : print(line)
+        line.isEmpty ? print("Empty") : print("Количество элементов: \(line.count), Элементы очереди: \(line)")
     }
-
+    
     subscript(index: Int) -> AnyTypeOfElement? {
         
         get {
@@ -58,32 +67,33 @@ struct Queue <AnyTypeOfElement: Equatable> {
         }
         set(newValue) {
             guard let newValue = newValue else { return }
-                self.line[index] = newValue
+            guard line.count != index && line.count >= index else { return print("Индекс вне диапозона") }
+            self.line[index] = newValue
         }
     }
 }
 var intQueue = Queue<Int>()
-intQueue.add(element: 10)
+intQueue.push(element: 10)
 intQueue[0] = 2555
 intQueue[-1]
-intQueue.add(element: 20)
-intQueue.add(element: 30)
-intQueue.add(element: 40)
-intQueue.add(element: 5)
-intQueue.add(element: 1)
-intQueue.add(element: 2)
-intQueue.add(element: 3)
-intQueue.add(element: 8)
-intQueue.add(element: 50)
-intQueue.add(element: 11)
-intQueue.add(element: 0)
-intQueue.add(element: 17)
-intQueue.add(element: 4)
-intQueue.add(element: 56)
-intQueue.add(element: 124)
-intQueue.add(element: 29)
-intQueue.add(element: 33)
-intQueue.add(element: 74)
+intQueue.push(element: 20)
+intQueue.push(element: 30)
+intQueue.push(element: 40)
+intQueue.push(element: 5)
+intQueue.push(element: 1)
+intQueue.push(element: 2)
+intQueue.push(element: 3)
+intQueue.push(element: 8)
+intQueue.push(element: 50)
+intQueue.push(element: 11)
+intQueue.push(element: 0)
+intQueue.push(element: 17)
+intQueue.push(element: 4)
+intQueue.push(element: 56)
+intQueue.push(element: 124)
+intQueue.push(element: 29)
+intQueue.push(element: 33)
+intQueue.push(element: 74)
 print("Четные")
 print(intQueue.filtering(make: {$0 % 2 == 0}))
 print("Нечетные")
@@ -91,19 +101,36 @@ print(intQueue.filtering(make: {$0 % 2 != 0}))
 print("Все числа, которые делятся на 5")
 print(intQueue.filtering(make: {$0 % 5 == 0}))
 print(intQueue[23])
+//print(intQueue.sorting(make: {$0 > $1}))
+
+print("""
+
+__________________________________________________________
+
+""")
+
 
 var stringQueue = Queue<String>()
-stringQueue.add(element: "Nik")
-stringQueue.add(element: "Alice")
-stringQueue.add(element: "John")
-stringQueue.add(element: "Marry")
-stringQueue.add(element: "Jin")
-stringQueue.add(element: "Petrush")
-stringQueue.add(element: "Kally")
-stringQueue.add(element: "Stix")
-stringQueue.status()
+stringQueue.push(element: "Nik")
+stringQueue.push(element: "Alice")
+stringQueue.push(element: "John")
+stringQueue.push(element: "Marry")
+stringQueue.push(element: "Jin")
+stringQueue.push(element: "Petrush")
+stringQueue.push(element: "Kally")
+stringQueue.push(element: "Stix")
+stringQueue.push(element: "Jimy")
 stringQueue[0] = "James"
 stringQueue[5] = "Nik"
 stringQueue[7] = "Axel"
 stringQueue[3] = "Sponge Bob"
+stringQueue[8] = "Jimy"
 stringQueue.status()
+stringQueue[8] = "Fin"
+stringQueue.status()
+let a = stringQueue.peek()
+print(a!)
+let b = stringQueue.pop()
+print(b!)
+let c = stringQueue.peek()
+print(c!)
