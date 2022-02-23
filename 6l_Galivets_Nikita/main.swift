@@ -7,17 +7,13 @@
 
 import Foundation
 
-//MARK: - 1) Реализовать свой тип коллекции «очередь» (queue) c использованием дженериков.
+//1) Реализовать свой тип коллекции «очередь» (queue) c использованием дженериков.
+//2) Добавить ему несколько методов высшего порядка, полезных для этой коллекции (пример: filter для массивов)
+//*3) Добавить свой subscript, который будет возвращать nil в случае обращения к несуществующему индексу.
 
 struct Queue <AnyTypeOfElement: Equatable> {
     
     private var line = [AnyTypeOfElement]()
-    
-}
-
-//MARK: - 2) Добавить ему несколько методов высшего порядка, полезных для этой коллекции (пример: filter для массивов)
-
-extension Queue {
     
     mutating func add (element: AnyTypeOfElement) {
         line.append(element)
@@ -31,19 +27,6 @@ extension Queue {
         line.isEmpty != true ? line[0] : nil
     }
     
-//    mutating func filtering(array: AnyTypeOfElement, ) -> AnyTypeOfElement? {
-//        return  line.filter { $0 % 2 == 0 }
-//    }
-    
-}
-
-
-
-
-//MARK: - *3) Добавить свой subscript, который будет возвращать nil в случае обращения к несуществующему индексу.
-
-extension Queue {
-    
     subscript(index: Int) -> AnyTypeOfElement {
         
         get {
@@ -53,8 +36,9 @@ extension Queue {
             self.line[index] = newValue
         }
     }
-    
 }
+
+
 
 var intQueue = Queue<Int>()
 intQueue.add(element: 10)
