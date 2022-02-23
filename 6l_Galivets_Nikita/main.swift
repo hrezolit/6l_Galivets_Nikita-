@@ -20,7 +20,7 @@ struct Queue <AnyTypeOfElement: Equatable> {
         line.append(element)
     }
     
-    ///Удвление  элемента
+    ///Удаление  элемента
     mutating func remove () -> AnyTypeOfElement? {
         line.isEmpty ? nil : line.removeFirst()
     }
@@ -49,25 +49,23 @@ struct Queue <AnyTypeOfElement: Equatable> {
     func status() {
         line.isEmpty ? print("Empty") : print(line)
     }
-    
+
     subscript(index: Int) -> AnyTypeOfElement? {
         
         get {
-            guard line.count > index else { return nil }
-            return line[index]
+            guard line.count <= index else { return line[index] }
+            return nil
         }
         set(newValue) {
-            
-            self.line[index] = newValue!
-            
+            guard let newValue = newValue else { return }
+                self.line[index] = newValue
         }
-        
     }
 }
 var intQueue = Queue<Int>()
 intQueue.add(element: 10)
-intQueue[0] = 10
-print(intQueue[0])
+intQueue[0] = 2555
+intQueue[-1]
 intQueue.add(element: 20)
 intQueue.add(element: 30)
 intQueue.add(element: 40)
@@ -92,6 +90,7 @@ print("Нечетные")
 print(intQueue.filtering(make: {$0 % 2 != 0}))
 print("Все числа, которые делятся на 5")
 print(intQueue.filtering(make: {$0 % 5 == 0}))
+print(intQueue[23])
 
 var stringQueue = Queue<String>()
 stringQueue.add(element: "Nik")
@@ -107,5 +106,4 @@ stringQueue[0] = "James"
 stringQueue[5] = "Nik"
 stringQueue[7] = "Axel"
 stringQueue[3] = "Sponge Bob"
-print(stringQueue[20])
 stringQueue.status()
