@@ -27,6 +27,20 @@ struct Queue <AnyTypeOfElement: Equatable> {
         line.isEmpty != true ? line[0] : nil
     }
     
+    func filtering(make:(AnyTypeOfElement) -> Bool) -> [AnyTypeOfElement] {
+        
+        var result = [AnyTypeOfElement]()
+        
+        for i in line {
+            if make(i) {
+                result.append(i)
+            }
+        }
+        
+        return result
+        
+    }
+    
     subscript(index: Int) -> AnyTypeOfElement {
         
         get {
@@ -48,6 +62,10 @@ print(intQueue[0])
 intQueue.add(element: 20)
 intQueue.add(element: 30)
 intQueue.add(element: 40)
-intQueue.add(element: 50)
-print(intQueue[2])
+intQueue.add(element: 5)
+intQueue.add(element: 1)
+intQueue.add(element: 2)
+intQueue.add(element: 3)
+intQueue.add(element: 4)
+print(intQueue.filtering(make: {$0 % 2 == 0}))
 
